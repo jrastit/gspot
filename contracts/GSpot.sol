@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 struct Ip {
     uint256 stake;
     bool enable;
+    address payable owner;
 }
 
 contract GSpot {
@@ -14,6 +15,7 @@ contract GSpot {
     ////////////////////////////////////// Owner ///////////////////////////////////////////
     //Owner of the contract
 	address public owner;
+
 	modifier isOwner() {
         require(msg.sender == owner, "Not owner");
         _;
@@ -49,18 +51,40 @@ contract GSpot {
 	}
 
     function bill(string calldata ip, uint256 amount) public isOwner() {
-        if (amount < ip_map[ip].stake)
+        if (amount < ip_map[ip].stake){
             ip_map[ip].stake -= amount;
-        else
+            userStake -= amount;
+            ownerStake += amount;
+        } else {
+            userStake -= ip_map[ip].stake;
+            ownerStake += ip_map[ip].stake;
             ip_map[ip].stake = 0;
             ip_map[ip].enable = false;
+
+        }
     }
 
     function stake(string calldata ip) public payable {
+        if (ip_map[ip].owner != address(0)){
+            assert(ip_map[ip].owner == msg.sender);
+        } else {
+            ip_map[ip].owner == msg.sender;
+        }
         ip_map[ip].stake += msg.value;
+        userStake += msg.value;
         if (ip_map[ip].stake > 0){
             ip_map[ip].enable = true;
         }
+    }
+
+    ////////////////////////////////////// Stake ///////////////////////////////////////////
+    //Activate global
+    uint256 public userStake;
+    uint256 public ownerStake;
+
+    function withdraw(address payable to) public isOwner() {
+        to.transfer(ownerStake);
+        ownerStake = 0;
     }
 
 }

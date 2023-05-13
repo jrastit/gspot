@@ -1,6 +1,7 @@
 from gspot.blockchain.account import acct
 import logging
 
+
 def update_running(gspot_contract, antenna, running):
     gspot_contract.setRunning(antenna, running, {'from': acct})
 
