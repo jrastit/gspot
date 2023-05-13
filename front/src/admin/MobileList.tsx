@@ -6,9 +6,11 @@ export interface MobileListProps {
 }
 
 const MobileList: FunctionComponent<MobileListProps> = ({mobiles}) => {
-    return (<>
-        {mobiles.map((mobile) => <Mobile {...mobile}/>)}
-    </>);
+    return (
+        <div style={{display: 'flex', flexWrap: 'wrap'}}>
+            {mobiles.map((mobile) => <Mobile {...mobile}/>)}
+        </div>
+    );
 };
 
 export default MobileList;
