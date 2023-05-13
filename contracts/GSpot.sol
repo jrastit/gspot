@@ -1,8 +1,8 @@
 pragma solidity ^0.8.0;
 
 struct Ip {
-    uint256 stake;
     bool enable;
+    uint256 stake;
     address payable owner;
 }
 
@@ -47,7 +47,7 @@ contract GSpot {
 
     function setIp(string calldata ip, bool enable) public isOwner() {
         ip_map[ip].enable = enable;
-        ip_map[ip].stake = 10;
+        ip_map[ip].stake = 0;
 	}
 
     function bill(string calldata ip, uint256 amount) public isOwner() {
@@ -60,7 +60,6 @@ contract GSpot {
             ownerStake += ip_map[ip].stake;
             ip_map[ip].stake = 0;
             ip_map[ip].enable = false;
-
         }
     }
 

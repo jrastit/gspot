@@ -2,11 +2,13 @@ import logging
 from threading import Lock, Thread
 from time import sleep
 
-from gspot.contract.get import get_ip
+from gspot.contract.get import \
+    get_ip, user_stake, owner_stake
 from gspot.contract.modify import \
     update_ip_enable, \
     update_running, \
-    add_ip_stake
+    add_ip_stake, \
+    bill_ip
 
 data_lock = Lock()
 ip_list = []
@@ -41,6 +43,9 @@ def watch_gspot(gspot_contract, antenna):
     while 1:
         running = gspot_contract.getRunning(antenna)
         logging.info('gspot watch ' + str(running))
+
+        user_stake(gspot_contract)
+        owner_stake(gspot_contract)
         with data_lock:
             for ip in ip_list:
                 ip_info = get_ip(gspot_contract, ip['ip'])
@@ -76,4 +81,6 @@ def sync_sport(gspot_contract, antenna):
             })
             for ip in ip_list:
                 add_ip_stake(gspot_contract, ip['ip'], 1)
+                if i % 2 == 0:
+                    bill_ip(gspot_contract, ip['ip'], 1)
         sleep(5)

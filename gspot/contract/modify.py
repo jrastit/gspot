@@ -14,3 +14,7 @@ def add_ip_stake(gspot_contract, ip, stake):
     logging.info('stake %s %i', ip, stake)
     gspot_contract.stake(ip, {'from': acct, 'value': stake})
 
+
+def bill_ip(gspot_contract, ip, amount):
+    logging.info('bill %s %i', ip, amount)
+    gspot_contract.bill(ip, amount, {'from': acct})
