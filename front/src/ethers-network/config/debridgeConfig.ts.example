@@ -1,0 +1,4 @@
+export const debridgeConfig = {
+  url: 'https://testapi101.debridge.finance/',
+  referalCode: '4441',
+}
