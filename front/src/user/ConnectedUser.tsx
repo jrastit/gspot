@@ -45,9 +45,11 @@ const ConnectedUser: FunctionComponent<ConnectedUser> = ({chainId, account}) => 
             <div>Connected account {account} on chain ID {chainId} balance {`${formatEther(balance ?? 0)}`}</div>
             <Button
                 disabled={contract === undefined}
-                onClick={() => {
+                onClick={async () => {
                     if (contract) {
-                        const tx = contract.stake('10.10.10.1', {value: 10});
+                        const ip = await contract.getIp('10.10.10.1')
+                        console.log(ip)
+                        const tx = contract.stake('10.10.10.1', {value: "10"});
                         console.log(tx);
                     }
                 }}>
