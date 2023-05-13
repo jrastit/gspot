@@ -24,7 +24,7 @@ const Admin: FunctionComponent = () => {
         const refresh = async () => {
             if (running) {
                 try {
-                    const response = await fetch('api/ip');
+                    const response = await fetch('/api/ip/');
                     if (response.status === 200) {
                         const result: ApiResult = await response.json();
                         setApiResult(result);
