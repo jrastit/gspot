@@ -1,28 +1,40 @@
-import {Button} from "react-bootstrap";
 import type {FunctionComponent} from "react";
-import {useState} from 'react';
-import type {MobileProps} from "./Mobile";
+import {useEffect, useState} from 'react';
 import MobileList from "./MobileList";
-import {produce} from "immer"
+
+export interface MobileInfo {
+    ip: string,
+    enable: boolean,
+    stake: string,
+}
 
 const Admin: FunctionComponent = () => {
-    const [mobiles, setMobiles] = useState<MobileProps[]>([
-        {name: 'mobile1'},
-        {name: 'mobile2'}
-    ]);
+    const [mobiles, setMobiles] = useState<MobileInfo[]>([]);
 
-    const addMobile = () => {
-        const nextState = produce(mobiles, (draft) => {
-            draft.push({name: `mobile${mobiles.length + 1}`})
-        })
-        setMobiles(nextState);
-    };
+    useEffect(() => {
+        const refresh = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/ip');
+                if (response.status === 200) {
+                    const result: { ip_list: MobileInfo[] } = await response.json();
+                    setMobiles(result.ip_list);
+                }
+            } catch (e) {
+                console.error(e);
+            }
+            setTimeout(refresh, 500);
+        };
+        refresh();
+    }, []);
+
 
     return (
-        <div>
-            <MobileList mobiles={mobiles}/>
-            <Button variant="primary" onClick={addMobile}>Add mobile</Button>
-        </div>
+        <>
+            <h1>Mobile phone list</h1>
+            <div>
+                <MobileList mobiles={mobiles}/>
+            </div>
+        </>
     );
 };
 

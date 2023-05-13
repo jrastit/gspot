@@ -1,15 +1,18 @@
 import type {FunctionComponent} from "react";
-import {Button, Card} from "react-bootstrap";
+import {Card} from "react-bootstrap";
+import {MobileInfo} from "./Admin";
 
-export interface MobileProps {
-    name: string,
+interface MobileProps {
+    info: MobileInfo,
 }
 
-const Mobile: FunctionComponent<MobileProps> = ({name}) => {
-    return <Card style={{ width: '18rem' }}>
+const Mobile: FunctionComponent<MobileProps> = ({info}) => {
+    return <Card style={{width: '18rem'}}>
         <Card.Body>
-            <Card.Title>{name}</Card.Title>
-            <Button variant="primary">Disconnect</Button>
+            <Card.Title>{info.enable ? '✅' : '❌'} {info.ip}</Card.Title>
+            <Card.Text>
+                Stake: {info.stake}
+            </Card.Text>
         </Card.Body>
     </Card>
 };
