@@ -2,9 +2,29 @@ from flask import Flask
 from flask_cors import CORS
 
 from gspot.api.api_root import root_api
+from gspot.api.api_data import data_api
+from gspot.backend.data import thread_sync, thread_watch
+from gspot.blockchain.deploy import deploy
+from gspot.blockchain.contract import get_contract_from_address
+from gspot.blockchain.faucet import faucet
+
+from os import getenv
+from brownie import network
+
+antenna = 'Small Cell 1'
+
+network_env = getenv('BLOCKCHAIN_NETWORK')
+if not network_env:  # pragma: no cover
+    network_env = 'development'
+network.connect(network_env)
 
 
 def create_app():
+    faucet()
+    contract = deploy()
+    gspot_contract = get_contract_from_address(contract.address)
+    thread_sync(gspot_contract, antenna)
+    thread_watch(gspot_contract, antenna)
     app = Flask(
         __name__,
         static_url_path='',
@@ -25,5 +45,6 @@ def create_app():
 
     # Register app services per section
     app.register_blueprint(root_api)
+    app.register_blueprint(data_api)
 
     return app
