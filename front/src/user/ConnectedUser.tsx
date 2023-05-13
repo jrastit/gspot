@@ -1,10 +1,10 @@
 import {FunctionComponent, useEffect, useMemo, useState} from "react";
 import {ethers} from "ethers";
-import abi from '../contract/GSpot.json';
 import {ExternalProvider} from "@ethersproject/providers/src.ts/web3-provider";
 import {BigNumber} from "@ethersproject/bignumber";
 import {formatEther} from "ethers/lib/utils";
 import {Button} from "react-bootstrap";
+import {getContractGSpot} from '../contract/GSpot'
 
 interface ConnectedUser {
     chainId: string,
@@ -33,7 +33,7 @@ const ConnectedUser: FunctionComponent<ConnectedUser> = ({chainId, account}) => 
         fetchAddress();
     }, []);
 
-    const contract = useMemo(() => contractAddress ? new ethers.Contract(contractAddress, abi.abi as unknown as string, signer) : undefined, [contractAddress]);
+    const contract = useMemo(() => contractAddress ? getContractGSpot(contractAddress, signer) : undefined, [contractAddress]);
 
     const [balance, setBalance] = useState<BigNumber>();
     useEffect(() => {
@@ -47,9 +47,7 @@ const ConnectedUser: FunctionComponent<ConnectedUser> = ({chainId, account}) => 
                 disabled={contract === undefined}
                 onClick={() => {
                     if (contract) {
-                        const daiWithSigner = contract.connect(signer);
-                        const dai = ethers.utils.parseUnits("10", 18);
-                        const tx = daiWithSigner.stake('10.10.10.1', {value: dai});
+                        const tx = contract.stake('10.10.10.1', {value: 10});
                         console.log(tx);
                     }
                 }}>
