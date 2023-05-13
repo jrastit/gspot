@@ -1,6 +1,7 @@
 import type {FunctionComponent} from "react";
 import {useEffect, useState} from 'react';
 import MobileList from "./MobileList";
+import {Card} from "react-bootstrap";
 
 export interface MobileInfo {
     ip: string,
@@ -9,8 +10,14 @@ export interface MobileInfo {
     owner: string,
 }
 
+interface ApiResult {
+    owner_stake: string,
+    user_stake: string,
+    ip_list: MobileInfo[],
+}
+
 const Admin: FunctionComponent = () => {
-    const [mobiles, setMobiles] = useState<MobileInfo[]>([]);
+    const [apiResult, setApiResult] = useState<ApiResult>();
 
     useEffect(() => {
         let running = true;
@@ -19,8 +26,8 @@ const Admin: FunctionComponent = () => {
                 try {
                     const response = await fetch('http://localhost:5000/api/ip');
                     if (response.status === 200) {
-                        const result: { ip_list: MobileInfo[] } = await response.json();
-                        setMobiles(result.ip_list);
+                        const result: ApiResult = await response.json();
+                        setApiResult(result);
                     }
                 } catch (e) {
                     console.error(e);
@@ -37,9 +44,24 @@ const Admin: FunctionComponent = () => {
 
     return (
         <>
-            <h1>Mobile phone list</h1>
+            <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                <Card style={{width: '18rem'}}>
+                    <Card.Body>
+                        <Card.Title>Owner stack</Card.Title>
+                        <Card.Text>{apiResult?.owner_stake ?? '0'}</Card.Text>
+                    </Card.Body>
+                </Card>
+                <Card style={{width: '18rem'}}>
+                    <Card.Body>
+                        <Card.Title>User stack</Card.Title>
+                        <Card.Text>{apiResult?.user_stake ?? '0'}</Card.Text>
+                    </Card.Body>
+                </Card>
+            </div>
+            <p/>
+            <h3>Registered mobiles</h3>
             <div>
-                <MobileList mobiles={mobiles}/>
+                <MobileList mobiles={apiResult?.ip_list ?? []}/>
             </div>
         </>
     );
