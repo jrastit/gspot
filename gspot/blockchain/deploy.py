@@ -29,6 +29,6 @@ def deploy():
         'gasPrice': get_gas_price()
     })
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-    logging.info('Contract address', tx_receipt['contractAddress'])
+    logging.info('Contract address %s', tx_receipt['contractAddress'])
     gspot.address = tx_receipt['contractAddress']
     return gspot
