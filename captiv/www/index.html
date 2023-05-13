@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.0-rc.0/web3.min.js" integrity="sha512-/PTXSvaFzmO4So7Ghyq+DEZOz0sNLU4v1DP4gMOfY3kFu9L/IKoqSHZ6lNl3ZoZ7wT20io3vu/U4IchGcGIhfw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            let correctNetwork = "0x1" // Ethereum Mainnet
+            let eventListenersSet = false
+            let account;
+            let web3;
+            let network;
+            
+            function getAccount() {
+              window.ethereum ?
+                ethereum.request({method: "eth_requestAccounts"}).then((accounts) => {
+                  account = accounts[0]
+                  web3 = new Web3(ethereum)
+                  network = ethereum.chainId
+                  
+                  // Check if network is correct
+                  network === correctNetwork ?
+                    console.log("You're on the correct network")
+                      : 
+                    console.log("You're on the wrong network")
+          
+                  // Set event listeners
+                  if (!eventListenersSet) {
+                      ethereum.on('accountsChanged', function () {
+                          getAccount()
+                      })
+          
+                      ethereum.on('chainChanged', function () {
+                          getAccount()
+                      })
+                      eventListenersSet = true
+                  }
+                }).catch((err) => console.log(err))
+              : console.log("Please install MetaMask")
+            }
+          </script>
+    </head>
+    <body>
+        <button onClick="javascript:getAccount()">Login using Metamask</button>
+<form action="login.php">
+    <input type="submit" value="Login" />
+</form>
+<form action="logout.php">
+    <input type="submit" value="Logout" />
+</form>
+    </body>
+</html>
