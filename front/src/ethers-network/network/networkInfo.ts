@@ -67,6 +67,7 @@ export const getProvider = (network: NetworkType, setError?: (error: string) => 
     console.error('Provider not found for network : ', error)
     setError && setError("Error in Metamask : " + error.message)
   }
+  return undefined;
 }
 
 export const getWallet = (network: NetworkType, privateKeys: any): ethers.Wallet => {

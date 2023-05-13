@@ -96,6 +96,7 @@ export const walletListLoadAddress = async (address: string, password: string) =
     const walletAddress = walletList.filter(wallet => wallet.address === address)
     if (walletAddress) return walletAddress[0]
   }
+  return undefined;
 }
 
 const walletListSave = async (walletList: WalletType[], password: string) => {

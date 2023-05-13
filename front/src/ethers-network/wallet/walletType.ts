@@ -36,21 +36,24 @@ const walletFromString = (wallet: WalletType, password: string) => {
 const walletListToJson = (walletList: Array<WalletType>, password: string) => {
   if (walletList)
     return JSON.stringify(walletList.map((wallet) => walletToString(wallet, password)))
+  return undefined;
 }
 
 const walletListFromJson = (walletList: string | null, password: string): WalletType[] | undefined => {
   if (walletList)
     return JSON.parse(walletList).map((wallet: WalletType) => walletFromString(wallet, password))
-}
+  return undefined;}
 
 const walletStorageToJson = (walletStorage: WalletStorageType) => {
   if (walletStorage)
     return JSON.stringify(walletStorage)
+  return undefined;
 }
 
 const walletStorageFromJson = (walletStorage: string | null): WalletStorageType | undefined => {
   if (walletStorage)
     return JSON.parse(walletStorage)
+  return undefined;
 }
 
 const walletNiceName = (wallet: WalletType | undefined) => {
