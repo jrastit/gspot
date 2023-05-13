@@ -15,6 +15,7 @@
     "safari >= 13"
   ],
   "dependencies": {
+    "@sismo-core/sismo-connect-react": "0.0.13",
     "bootstrap": "5.2.3",
     "buffer": "6.0.3",
     "immer": "10.0.2",
