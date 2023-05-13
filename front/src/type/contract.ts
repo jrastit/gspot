@@ -1,16 +1,8 @@
 import { BigNumber } from 'ethers'
 
 import {
-  ContractAlketh,
-  ContractGameManager,
-  ContractNFT,
-  ContractPlayBot,
-  ContractPlayGameFactory,
-  ContractPlayActionLib,
-  ContractPlayGame,
-  ContractCardList,
-  ContractGameList,
-} from 'alketh-contract'
+  ContractGSpot,
+} from '../contract/GSpot'
 
 import {
   TransactionManager
@@ -28,19 +20,7 @@ export type ContractType<Contract> = {
 
 export type ContractHandlerType = {
   transactionManager: TransactionManager
-  alketh: ContractType<ContractAlketh>
-  gameManager: ContractType<ContractGameManager>
-  cardList: ContractType<ContractCardList>
-  gameList: ContractType<ContractGameList>
-
-  nft: ContractType<ContractNFT>
-
-  playGameFactory: ContractType<ContractPlayGameFactory>
-  playGame: ContractType<ContractPlayGame>
-  playActionLib: ContractType<ContractPlayActionLib>
-
-  playBot: ContractType<ContractPlayBot>
-
+  gspot: ContractType<ContractGSpot>
 }
 
 class newContract<Contract extends { release: () => void }>{
@@ -83,14 +63,6 @@ export const newContractHandler = (
 ): ContractHandlerType => {
   return {
     transactionManager: transactionManager,
-    alketh: new newContract<ContractAlketh>("Alketh"),
-    gameManager: new newContract<ContractGameManager>("Game Manager"),
-    nft: new newContract<ContractNFT>("NFT"),
-    playGameFactory: new newContract<ContractPlayGameFactory>("Play Game Factory"),
-    playGame: new newContract<ContractPlayGame>("Play Game"),
-    playActionLib: new newContract<ContractPlayActionLib>("Play Action Lib"),
-    playBot: new newContract<ContractPlayBot>("Play Bot"),
-    cardList: new newContract<ContractCardList>("Card List"),
-    gameList: new newContract<ContractGameList>("Game List"),
+    gspot: new newContract<ContractGSpot>("GSpot"),
   }
 }

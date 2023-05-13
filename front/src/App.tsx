@@ -4,6 +4,7 @@ import User from "./user/User";
 import UserSismo from "./user/UserSismo";
 
 const App: FunctionComponent = () => {
+
     switch (window.location.pathname) {
         case '/admin':
             return <Admin/>;
