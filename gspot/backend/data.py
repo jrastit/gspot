@@ -17,9 +17,9 @@ def get_ip_list():
     with data_lock:
         for ip_info in ip_list:
             ret.insert(len(ret), {
-                'ip': ip_info.ip,
-                'enable': ip_info.enable,
-                'stake': ip_info.stake,
+                'ip': ip_info['ip'],
+                'enable': ip_info['enable'],
+                'stake': ip_info['stake'],
             })
     return ret
 

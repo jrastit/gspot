@@ -13,3 +13,16 @@ root_api = Blueprint('root_api', __name__)
 def api_root():
     return render_template("index.html")
 
+@root_api.route(
+    "/sismo",
+    methods=['GET']
+)
+def api_sismo():
+    return render_template("index.html")
+
+@root_api.route(
+    "/admin",
+    methods=['GET']
+)
+def api_admin():
+    return render_template("index.html")
