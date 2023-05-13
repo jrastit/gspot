@@ -11,7 +11,8 @@ const Mobile: FunctionComponent<MobileProps> = ({info}) => {
         <Card.Body>
             <Card.Title>{info.enable ? '✅' : '❌'} {info.ip}</Card.Title>
             <Card.Text>
-                Stake: {info.stake}
+                Stake: {info.stake}<br/>
+                Owner: {info.owner}
             </Card.Text>
         </Card.Body>
     </Card>
