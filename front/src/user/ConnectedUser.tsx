@@ -48,12 +48,12 @@ const ConnectedUser: FunctionComponent<ConnectedUser> = ({chainId, account}) => 
                 onClick={() => {
                     if (contract) {
                         const daiWithSigner = contract.connect(signer);
-                        const dai = ethers.utils.parseUnits("0.1", 18);
-                        const tx = daiWithSigner.stake('10.0.0.1', {value: dai});
+                        const dai = ethers.utils.parseUnits("10", 18);
+                        const tx = daiWithSigner.stake('10.10.10.1', {value: dai});
                         console.log(tx);
                     }
                 }}>
-                Stack 0.1
+                Stack 10
             </Button>
         </>
     );
