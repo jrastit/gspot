@@ -1,6 +1,7 @@
 import logging
 from threading import Lock, Thread
 from time import sleep
+from random import randrange
 
 from gspot.contract.get import \
     get_ip, user_stake, owner_stake
@@ -80,7 +81,9 @@ def sync_sport(gspot_contract, antenna):
                 'owner': '',
             })
             for ip in ip_list:
-                add_ip_stake(gspot_contract, ip['ip'], 1)
-                if i % 2 == 0:
+                a = randrange(4)
+                if a == 1:
+                    add_ip_stake(gspot_contract, ip['ip'], 1)
+                if a == 2:
                     bill_ip(gspot_contract, ip['ip'], 1)
         sleep(5)
