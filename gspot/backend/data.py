@@ -20,6 +20,7 @@ def get_ip_list():
                 'ip': ip_info['ip'],
                 'enable': ip_info['enable'],
                 'stake': ip_info['stake'],
+                'owner': ip_info['owner'],
             })
     return ret
 
@@ -46,7 +47,13 @@ def watch_gspot(gspot_contract, antenna):
                 logging.info('%s %s', str(ip), str(ip_info))
                 ip['enable'] = ip_info[0]
                 ip['stake'] = str(ip_info[1])
-                logging.info('%s %s %s', ip['ip'], ip['enable'], ip['stake'])
+                ip['owner'] = str(ip_info[2])
+                logging.info('%s %s %s %s',
+                             ip['ip'],
+                             ip['enable'],
+                             ip['stake'],
+                             ip['owner']
+                             )
         sleep(1)
 
 
@@ -64,7 +71,8 @@ def sync_sport(gspot_contract, antenna):
             ip_list.insert(len(ip_list) + 1, {
                 'ip': ip,
                 'enable': False,
-                'stake': 0
+                'stake': 0,
+                'owner': '',
             })
             for ip in ip_list:
                 add_ip_stake(gspot_contract, ip['ip'], 1)
