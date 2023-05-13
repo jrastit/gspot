@@ -68,7 +68,7 @@ contract GSpot {
         if (ip_map[ip].owner != address(0)){
             assert(ip_map[ip].owner == msg.sender);
         } else {
-            ip_map[ip].owner == msg.sender;
+            ip_map[ip].owner = payable(msg.sender);
         }
         ip_map[ip].stake += msg.value;
         userStake += msg.value;
