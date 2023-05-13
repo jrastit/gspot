@@ -1,10 +1,10 @@
 import type {FunctionComponent} from 'react';
-import {useState} from "react";
-import {AuthType, SismoConnectButton, SismoConnectClientConfig} from "@sismo-core/sismo-connect-react";
+import {useState} from 'react';
+import {AuthType, SismoConnectButton, SismoConnectClientConfig} from '@sismo-core/sismo-connect-react';
 
 
 const sismoConnectConfig: SismoConnectClientConfig = {
-    appId: "0xf4977993e52606cfd67b7a1cde717069",
+    appId: '0xc549efb14f82dc59f3b98405e3acaa33',
     devMode: {
         enabled: true,
     },
@@ -12,9 +12,9 @@ const sismoConnectConfig: SismoConnectClientConfig = {
 
 export const signMessage = (account: string) => `Hello ${account}`;
 const UserSismo: FunctionComponent = () => {
-    const [responseBytes, setResponseBytes] = useState<string>("");
+    const [responseBytes, setResponseBytes] = useState<string>('');
     const [account] = useState<`0x${string}`>(
-        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+        '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
     );
 
     return (
@@ -34,7 +34,7 @@ const UserSismo: FunctionComponent = () => {
                     // with the responseBytes returned by the Sismo Vault
                     onResponseBytes={(responseBytes: string) => setResponseBytes(responseBytes)}
                     // Some text to display on the button
-                    text={"Connect with Sismo"}
+                    text={'Connect with Sismo'}
                 />
             </div>
         </>
