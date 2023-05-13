@@ -1,17 +1,23 @@
-import {FunctionComponent, useEffect, useState} from "react";
-import {ethers, formatEther} from "ethers";
-import {Eip1193Provider} from "ethers/src.ts/providers/provider-browser";
+import {FunctionComponent, useEffect, useMemo, useState} from "react";
+import {ethers} from "ethers";
+import abi from './GSpot.json';
+import {ExternalProvider} from "@ethersproject/providers/src.ts/web3-provider";
+import {BigNumber} from "@ethersproject/bignumber";
+import {formatEther} from "ethers/lib/utils";
 
 interface ConnectedUser {
     chainId: string,
     account: string,
 }
 
-const provider = new ethers.BrowserProvider((window as unknown as { ethereum: Eip1193Provider }).ethereum);
-console.log(provider);
+console.log(abi);
 
 const ConnectedUser: FunctionComponent<ConnectedUser> = ({chainId, account}) => {
-    const [balance, setBalance] = useState<bigint>();
+    const provider = useMemo(() => new ethers.providers.Web3Provider((window as unknown as {
+        ethereum: ExternalProvider
+    }).ethereum), []);
+
+    const [balance, setBalance] = useState<BigNumber>();
     useEffect(() => {
         (async () => setBalance(await provider.getBalance(account)))();
     }, [account])
