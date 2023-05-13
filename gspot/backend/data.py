@@ -1,7 +1,7 @@
 import logging
+from random import randrange
 from threading import Lock, Thread
 from time import sleep
-from random import randrange
 
 from gspot.contract.get import \
     get_ip, user_stake, owner_stake
@@ -16,11 +16,14 @@ ip_list = []
 owner_stack = ''
 user_stack = ''
 
+
 def get_owner_stack():
     return owner_stack
 
+
 def get_user_stack():
     return user_stack
+
 
 def get_ip_list():
     ret = []
@@ -55,7 +58,7 @@ def watch_gspot(gspot_contract, antenna):
         logging.info('gspot watch ' + str(running))
 
         user_stack = user_stake(gspot_contract)
-        owner_stack= owner_stake(gspot_contract)
+        owner_stack = owner_stake(gspot_contract)
         with data_lock:
             for ip in ip_list:
                 ip_info = get_ip(gspot_contract, ip['ip'])
@@ -64,11 +67,11 @@ def watch_gspot(gspot_contract, antenna):
                 ip['stake'] = str(ip_info[1])
                 ip['owner'] = str(ip_info[2])
                 logging.debug('%s %s %s %s',
-                             ip['ip'],
-                             ip['enable'],
-                             ip['stake'],
-                             ip['owner']
-                             )
+                              ip['ip'],
+                              ip['enable'],
+                              ip['stake'],
+                              ip['owner']
+                              )
         sleep(1)
 
 
@@ -81,14 +84,15 @@ def sync_sport(gspot_contract, antenna):
         update_running(gspot_contract, antenna, running)
         i += 1
         ip = '10.10.10.' + str(i)
-        update_ip_enable(gspot_contract, ip, True)
         with data_lock:
-            ip_list.insert(len(ip_list) + 1, {
-                'ip': ip,
-                'enable': False,
-                'stake': 0,
-                'owner': '',
-            })
+            if len(ip_list) < 12:
+                update_ip_enable(gspot_contract, ip, True)
+                ip_list.insert(len(ip_list) + 1, {
+                    'ip': ip,
+                    'enable': False,
+                    'stake': 0,
+                    'owner': '',
+                })
             for ip in ip_list:
                 a = randrange(4)
                 if a == 1:
