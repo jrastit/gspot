@@ -1,7 +1,7 @@
-import Button from '@mui/material/Button';
+import {Button} from "react-bootstrap";
 import type {FunctionComponent} from "react";
 import {useState} from 'react';
-import {MobileProps} from "./Mobile";
+import type {MobileProps} from "./Mobile";
 import MobileList from "./MobileList";
 
 const Admin: FunctionComponent = () => {
@@ -13,7 +13,7 @@ const Admin: FunctionComponent = () => {
     return (
         <div>
             <MobileList mobiles={mobiles}/>
-            <Button variant="contained">Add mobile</Button>
+            <Button variant="primary">Add mobile</Button>
         </div>
     );
 };

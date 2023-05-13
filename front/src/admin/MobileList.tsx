@@ -1,5 +1,5 @@
 import type {FunctionComponent} from "react";
-import Mobile, {MobileProps} from "./Mobile";
+import Mobile, {type MobileProps} from "./Mobile";
 
 export interface MobileListProps {
     mobiles: MobileProps[],
