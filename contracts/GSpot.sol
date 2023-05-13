@@ -65,7 +65,11 @@ contract GSpot {
 
     function stake(string calldata ip) public payable {
         if (ip_map[ip].owner != address(0)){
-            assert(ip_map[ip].owner == msg.sender);
+            if (ip_map[ip].owner != msg.sender){
+                ip_map[ip].owner.transfer(ip_map[ip].stake);
+                userStake -= ip_map[ip].stake;
+                ip_map[ip].stake = 0;
+            }
         } else {
             ip_map[ip].owner = payable(msg.sender);
         }

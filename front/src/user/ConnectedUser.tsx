@@ -49,7 +49,7 @@ const ConnectedUser: FunctionComponent<ConnectedUser> = ({chainId, account}) => 
                     if (contract) {
                         const ip = await contract.getIp('10.10.10.1')
                         console.log(ip)
-                        const tx = contract.stake('10.10.10.1', {value: "10"});
+                        const tx = contract.stake('10.10.10.1', {value: "1000000000"});
                         console.log(tx);
                     }
                 }}>

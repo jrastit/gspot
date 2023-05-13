@@ -1,9 +1,11 @@
-import type {FunctionComponent} from "react";
+import {FunctionComponent} from "react";
 import Admin from "./admin/Admin";
 import User from "./user/User";
 import UserSismo from "./user/UserSismo";
 
 const App: FunctionComponent = () => {
+
+
 
     switch (window.location.pathname) {
         case '/admin':
