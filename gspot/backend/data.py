@@ -13,7 +13,14 @@ from gspot.contract.modify import \
 
 data_lock = Lock()
 ip_list = []
-stakes = {}
+owner_stack = ''
+user_stack = ''
+
+def get_owner_stack():
+    return owner_stack
+
+def get_user_stack():
+    return user_stack
 
 def get_ip_list():
     ret = []
@@ -41,12 +48,14 @@ def thread_sync(gspot_contract, antenna):
 
 
 def watch_gspot(gspot_contract, antenna):
+    global user_stack
+    global owner_stack
     while 1:
         running = gspot_contract.getRunning(antenna)
         logging.info('gspot watch ' + str(running))
 
-        stakes['user'] = user_stake(gspot_contract)
-        stakes['owner'] = owner_stake(gspot_contract)
+        user_stack = user_stake(gspot_contract)
+        owner_stack= owner_stake(gspot_contract)
         with data_lock:
             for ip in ip_list:
                 ip_info = get_ip(gspot_contract, ip['ip'])

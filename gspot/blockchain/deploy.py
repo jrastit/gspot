@@ -8,8 +8,13 @@ from gspot.blockchain.account import acct
 
 import logging
 
+contract_address = ''
+
+def get_contract_address():
+    return contract_address
 
 def deploy():
+    global contract_address
     w3 = Web3(Web3.HTTPProvider(getenv('WEB3_URL')))
     with open("build/contracts/GSpot.json") as f:
         info_json = json.load(f)
@@ -30,5 +35,6 @@ def deploy():
     })
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
     logging.info('Contract address %s', tx_receipt['contractAddress'])
-    gspot.address = tx_receipt['contractAddress']
+    contract_address = tx_receipt['contractAddress']
+    gspot.address = contract_address
     return gspot
