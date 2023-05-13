@@ -18,7 +18,7 @@ const ConnectedUser: FunctionComponent<ConnectedUser> = ({chainId, account}) => 
     const signer = useMemo(() => provider.getSigner(), []);
     const [contractAddress, setContactAddress] = useState<string>();
     useEffect(() => {
-        const fetchAddres = async () => {
+        const fetchAddress = async () => {
             try {
                 const response = await fetch('/api/contract/');
                 if (response.status === 200) {
@@ -30,10 +30,10 @@ const ConnectedUser: FunctionComponent<ConnectedUser> = ({chainId, account}) => 
                 console.error(e);
             }
         };
-        fetchAddres();
+        fetchAddress();
     }, []);
 
-    const contract = useMemo(() => contractAddress ? new ethers.Contract(contractAddress, abi.abi as unknown as string, provider) : undefined, [contractAddress]);
+    const contract = useMemo(() => contractAddress ? new ethers.Contract(contractAddress, abi.abi as unknown as string, signer) : undefined, [contractAddress]);
 
     const [balance, setBalance] = useState<BigNumber>();
     useEffect(() => {
@@ -49,7 +49,7 @@ const ConnectedUser: FunctionComponent<ConnectedUser> = ({chainId, account}) => 
                     if (contract) {
                         const daiWithSigner = contract.connect(signer);
                         const dai = ethers.utils.parseUnits("0.1", 18);
-                        const tx = daiWithSigner.stake(account, dai);
+                        const tx = daiWithSigner.stake('10.0.0.1', {value: dai});
                         console.log(tx);
                     }
                 }}>

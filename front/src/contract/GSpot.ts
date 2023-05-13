@@ -13,7 +13,7 @@ export class ContractGSpot extends ContractGeneric {
   }
 }
 
-export const getContractNFT = (
+export const getContractGSpot = (
   contractAddress: string,
   signer: ethers.Signer,
 ) => {
