@@ -4,7 +4,7 @@ from web3.middleware import construct_sign_and_send_raw_middleware
 from web3 import Web3
 import logging
 import json
-from threading import Thread
+from threading import Thread, Lock
 from time import sleep
 
 network_env = getenv('BLOCKCHAIN_NETWORK')
@@ -14,14 +14,22 @@ network.connect(network_env)
 
 acct = accounts.load('testac', 'test')
 
+data_lock = Lock()
+ip_list = []
+
 
 def get_gas_price():
     return 0
 
 
-def watch_gspot(gspot_contract):
+def watch_gspot(gspot_contract, antenna):
     while 1:
-        logging.info('gspot watch ' + str(gspot_contract.running()))
+        running = gspot_contract.getRunning(antenna)
+        logging.info('gspot watch ' + str(running))
+        with data_lock:
+            for ip in ip_list:
+                ip_info = gspot_contract.getIp(ip)
+                logging.info('%s %s', ip, ip_info)
         sleep(1)
 
 
@@ -65,14 +73,29 @@ def deploy():
 
 
 def main():
+    acct2 = accounts.add(
+        '0xbbfbee4961061d506ffbb11dfea'
+        '64eba16355cbf1d9c29613126ba7fec0aed5d')
+    acct2.transfer(acct, 100)
+    antenna = 'test_antenna'
     logging.basicConfig(level=logging.INFO)
     gspot = deploy()
     logging.debug('gspot address' + gspot.address)
     gspot_contract = get_contract_from_address(gspot.address)
-    Thread(target=watch_gspot, args=(gspot_contract,)).start()
+    Thread(target=watch_gspot, args=(gspot_contract,antenna,)).start()
+    running = False
+    i = 0
     while 1:
         logging.debug('main')
-        gspot_contract.setRunning({'from': acct})
+        running = not running
+        gspot_contract.setRunning(antenna, running, {'from': acct})
+        i += 1
+        ip = '10.10.10.' + str(i)
+        gspot_contract.setIp(ip, True, {'from': acct})
+        with data_lock:
+            ip_list.insert(len(ip_list), ip)
+            for ip in ip_list:
+                gspot_contract.stake(ip, {'from': acct, 'value': 1})
         sleep(5)
 
 
