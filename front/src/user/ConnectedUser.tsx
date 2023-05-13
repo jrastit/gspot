@@ -1,5 +1,6 @@
 import {FunctionComponent, useEffect, useMemo, useState} from "react";
 import {ethers} from "ethers";
+import abi from '../contract/GSpot.json';
 import {ExternalProvider} from "@ethersproject/providers/src.ts/web3-provider";
 import {BigNumber} from "@ethersproject/bignumber";
 import {formatEther} from "ethers/lib/utils";
