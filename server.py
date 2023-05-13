@@ -6,6 +6,7 @@ import logging
 import json
 from threading import Thread, Lock
 from time import sleep
+from gspot.app import create_app
 
 network_env = getenv('BLOCKCHAIN_NETWORK')
 if not network_env:  # pragma: no cover
@@ -98,6 +99,8 @@ def main():
                 gspot_contract.stake(ip, {'from': acct, 'value': 1})
         sleep(5)
 
+
+app = create_app()
 
 if __name__ == '__main__':
     main()

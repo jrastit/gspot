@@ -5,8 +5,6 @@ struct Ip {
     uint256 stake;
 }
 
-
-
 contract GSpot {
 
     constructor() {

@@ -6,4 +6,4 @@ virtualenv -p python3 venv
 source venv/bin/activate
 . ./env.sh
 
-python3 gspot.py
+flask --app server.py:app run

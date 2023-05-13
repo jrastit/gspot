@@ -1,2 +1,6 @@
 eth-brownie
-web3
+requests
+flask
+flask_cors
+flasgger
+flask_restful
