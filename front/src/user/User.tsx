@@ -1,6 +1,7 @@
 import type {FunctionComponent} from 'react';
 import {useMetaMask} from 'metamask-react';
 import {Button} from "react-bootstrap";
+import ConnectedUser from "./ConnectedUser";
 
 
 const User: FunctionComponent = () => {
@@ -16,7 +17,7 @@ const User: FunctionComponent = () => {
         case 'connecting':
             return <Button variant="primary" disabled>Connecting...</Button>;
         case 'connected':
-            return <div>Connected account {account} on chain ID {chainId}</div>;
+            return <ConnectedUser chainId={chainId} account={account}/>;
         default:
             return null;
     }
