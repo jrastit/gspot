@@ -142,6 +142,8 @@ frozenlist==1.3.1
     #   aiohttp
     #   aiosignal
     #   eth-brownie
+gunicorn==20.1.0
+    # via -r requirements.in
 hexbytes==0.2.3
     # via
     #   eip712

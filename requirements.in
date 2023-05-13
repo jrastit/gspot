@@ -4,3 +4,4 @@ flask
 flask_cors
 flasgger
 flask_restful
+gunicorn
