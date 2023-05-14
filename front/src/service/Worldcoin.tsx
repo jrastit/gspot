@@ -8,7 +8,7 @@ const Worldcoin: FunctionComponent = () => {
     return new Promise<void>((resolve, reject) => {
       const fetchAddress = async () => {
           try {
-              const response = await fetch('/api/worldcoin', {
+              const response = await fetch('/api/worldcoin/', {
                 method:'POST',
                 body:JSON.stringify(result),
                 headers: {
