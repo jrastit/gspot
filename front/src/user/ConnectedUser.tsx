@@ -40,7 +40,9 @@ const ConnectedUser: FunctionComponent<ConnectedUser> = ({chainId, account}) => 
         (async () => setBalance(await provider.getBalance(account)))();
     }, [account])
 
-    const [ip, setIp] = useState('192.168.1.130')
+    const params = window.location.search;
+    const ipParam = params.startsWith('?ip=') ? params.substring(4) : '192.168.1.130';
+    const [ip, setIp] = useState(ipParam)
     const [amount, setAmount] = useState('10')
 
     return (
