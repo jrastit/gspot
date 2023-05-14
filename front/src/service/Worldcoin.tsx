@@ -5,7 +5,7 @@ const Worldcoin: FunctionComponent = () => {
 
   const handleProof = (result: ISuccessResult) => {
     console.log(result)
-    return new Promise<void>((resolve) => {
+    return new Promise<void>((resolve, reject) => {
       const fetchAddress = async () => {
           try {
               const response = await fetch('/api/worldcoin', {
@@ -18,9 +18,10 @@ const Worldcoin: FunctionComponent = () => {
               if (response.status === 200) {
                   resolve()
               }
+              reject()
           } catch (e) {
               console.error(e);
-              throw e
+              reject()
           }
       };
       fetchAddress();

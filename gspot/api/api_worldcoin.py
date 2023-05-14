@@ -52,7 +52,7 @@ def api_worldcoin():
         data=content,
     )
     logging.info(answer)
-    if answer['success'] is True:
+    if answer[1]['success'] is True:
         return {'success': True}, 200
     return {'error'}, 400
 
