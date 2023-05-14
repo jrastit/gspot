@@ -8,6 +8,8 @@ export interface MobileInfo {
     enable: boolean,
     stake: string,
     owner: string,
+    totalSize: number,
+    totalBilled: number,
 }
 
 interface ApiResult {
