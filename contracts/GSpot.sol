@@ -81,7 +81,7 @@ contract GSpot {
     }
 
     function unstake(string calldata ip) public {
-        assert(ip_map[ip].owner == msg.sender, "Wrong owner");
+        require(ip_map[ip].owner == msg.sender, "Wrong owner");
         ip_map[ip].owner.transfer(ip_map[ip].stake);
         userStake -= ip_map[ip].stake;
         ip_map[ip].stake = 0;
