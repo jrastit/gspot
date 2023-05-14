@@ -16,6 +16,7 @@ ip_list = []
 owner_stack = ''
 user_stack = ''
 
+thread_ok = False
 
 def get_owner_stack():
     return owner_stack
@@ -66,7 +67,8 @@ def init_spot(gspot_contract):
 def watch_gspot(gspot_contract, antenna):
     global user_stack
     global owner_stack
-    while 1:
+    global thread_ok
+    while thread_ok:
         running = gspot_contract.getRunning(antenna)
         logging.info('gspot watch ' + str(running))
 
@@ -91,7 +93,7 @@ def watch_gspot(gspot_contract, antenna):
 def sync_sport(gspot_contract, antenna):
     running = False
     i = 0
-    while 1:
+    while thread_ok:
         logging.debug('main')
         running = not running
         update_running(gspot_contract, antenna, running)

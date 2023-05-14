@@ -3,6 +3,30 @@ import {FunctionComponent} from "react";
 
 const Worldcoin: FunctionComponent = () => {
 
+  const handleProof = (result: ISuccessResult) => {
+    console.log(result)
+    return new Promise<void>((resolve) => {
+      const fetchAddress = async () => {
+          try {
+              const response = await fetch('/api/worldcoin', {
+                method:'POST',
+                body:JSON.stringify(result),
+                headers: {
+                  'Content-Type' : 'application/json'
+                },
+              });
+              if (response.status === 200) {
+                  resolve()
+              }
+          } catch (e) {
+              console.error(e);
+              throw e
+          }
+      };
+      fetchAddress();
+		});
+	};
+
   const onSuccess = (result: ISuccessResult) => {
 		console.log(result);
 	};
@@ -27,8 +51,10 @@ const Worldcoin: FunctionComponent = () => {
 	   <IDKitWidget
 		   app_id="app_13ab310215a3903f8d78039d17ce46a6" // obtain this from developer.worldcoin.org
 		   action="free-credit"
+       signal="random_signal"
        credential_types={credential_types}
 		   onSuccess={onSuccess} // pass the proof to the API or your smart contract
+       handleVerify={handleProof}
 	   >
      {({ open } : { open : any }) => <button onClick={open}>Login with worldcoin</button>}
      </IDKitWidget>
