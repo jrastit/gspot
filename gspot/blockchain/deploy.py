@@ -10,8 +10,10 @@ import logging
 
 contract_address = ''
 
+
 def get_contract_address():
     return contract_address
+
 
 def deploy():
     global contract_address
@@ -22,6 +24,8 @@ def deploy():
     bytecode = info_json["bytecode"]
     gspot = w3.eth.contract(abi=abi, bytecode=bytecode)
     account = w3.eth.account.privateKeyToAccount(acct.private_key)
+
+    logging.info('account %s %s', account.address, acct.private_key)
     '''
     account = w3.eth.account.from_mnemonic(
         'unit vanish midnight outside dumb width'
@@ -29,6 +33,7 @@ def deploy():
     )
     '''
     w3.middleware_onion.add(construct_sign_and_send_raw_middleware(account))
+    logging.info(get_gas_price())
     tx_hash = gspot.constructor().transact({
         'from': account.address,
         'gasPrice': get_gas_price()

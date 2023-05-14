@@ -13,7 +13,11 @@ from gspot.blockchain.contract import get_contract_from_address
 from gspot.blockchain.deploy import deploy
 from gspot.blockchain.faucet import faucet
 
+import logging
+
 antenna = 'Small Cell 1'
+
+
 
 network_env = getenv('BLOCKCHAIN_NETWORK')
 if not network_env:  # pragma: no cover
@@ -22,7 +26,8 @@ network.connect(network_env)
 
 
 def create_app():
-    faucet()
+
+    # faucet()
     contract = deploy()
     gspot_contract = get_contract_from_address(contract.address)
     init_spot(gspot_contract)
