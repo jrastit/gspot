@@ -7,6 +7,7 @@ from flask_cors import CORS
 from gspot.api.api_data import data_api
 from gspot.api.api_root import root_api
 from gspot.api.api_worldcoin import worldcoin_api
+from gspot.api.api_sismo import sismo_api
 from gspot.backend.data import thread_sync, thread_watch, init_spot
 from gspot.blockchain.contract import get_contract_from_address
 from gspot.blockchain.deploy import deploy
@@ -49,5 +50,6 @@ def create_app():
     app.register_blueprint(root_api)
     app.register_blueprint(data_api)
     app.register_blueprint(worldcoin_api)
+    app.register_blueprint(sismo_api)
 
     return app

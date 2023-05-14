@@ -18,6 +18,18 @@ user_stack = ''
 
 thread_ok = False
 
+
+def get_unique_wallet():
+    unique = []
+    with data_lock:
+        for ip_info in ip_list:
+            if ip_info['ip'] in unique:
+                continue
+            else:
+                unique.append(ip_info['ip'])
+    return unique
+
+
 def get_owner_stack():
     return owner_stack
 
