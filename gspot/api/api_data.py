@@ -11,8 +11,8 @@ from gspot.backend.data import get_ip_list, get_owner_stack, get_user_stack
 )
 def api_get_ip_list():
     return {
-        'owner_stake': get_owner_stack(),
-        'user_stake': get_user_stack(),
+        'owner_stake': str(get_owner_stack()),
+        'user_stake': str(get_user_stack()),
         'ip_list': get_ip_list()
     }
 

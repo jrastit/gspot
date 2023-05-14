@@ -47,9 +47,7 @@ const ConnectedUser: FunctionComponent<ConnectedUser> = ({chainId, account}) => 
                 disabled={contract === undefined}
                 onClick={async () => {
                     if (contract) {
-                        const ip = await contract.getIp('10.10.10.1')
-                        console.log(ip)
-                        const tx = contract.stake('10.10.10.1', {value: "1000000000"});
+                        const tx = await contract.stake('192.168.1.130', {value: "10"});
                         console.log(tx);
                     }
                 }}>
