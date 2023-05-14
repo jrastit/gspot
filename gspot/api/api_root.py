@@ -10,6 +10,10 @@ root_api = Blueprint('root_api', __name__)
     "/",
     methods=['GET']
 )
+@root_api.route(
+    "/free",
+    methods=['GET']
+)
 def api_root():
     return render_template("index.html")
 
