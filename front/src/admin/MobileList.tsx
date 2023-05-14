@@ -8,7 +8,7 @@ interface MobileListProps {
 
 const MobileList: FunctionComponent<MobileListProps> = ({mobiles}) => {
     return (
-        <div style={{display: 'flex', flexWrap: 'wrap'}}>
+        <div style={{display: 'flex', flexWrap: 'wrap', gap: '10px'}}>
             {mobiles.map((mobileInfo) => <Mobile key={mobileInfo.ip} info={mobileInfo}/>)}
         </div>
     );

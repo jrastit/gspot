@@ -43,8 +43,8 @@ const Admin: FunctionComponent = () => {
 
 
     return (
-        <>
-            <div style={{display: 'flex', flexWrap: 'wrap'}}>
+        <div style={{padding: '10px'}}>
+            <div style={{display: 'flex', flexWrap: 'wrap', gap: '10px'}}>
                 <Card style={{width: '18rem'}}>
                     <Card.Body>
                         <Card.Title>Owner stack</Card.Title>
@@ -63,7 +63,7 @@ const Admin: FunctionComponent = () => {
             <div>
                 <MobileList mobiles={apiResult?.ip_list ?? []}/>
             </div>
-        </>
+        </div>
     );
 };
 

@@ -25,7 +25,7 @@ const App: FunctionComponent = () => {
         <>
             <Navbar bg="light" expand="lg">
                 <Container>
-                    <Navbar.Brand href="#home">Global spot</Navbar.Brand>
+                    <Navbar.Brand>Global spot</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
