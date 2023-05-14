@@ -67,10 +67,9 @@ def init_spot(gspot_contract):
 def watch_gspot(gspot_contract, antenna):
     global user_stack
     global owner_stack
-    global thread_ok
-    while thread_ok:
+    while True:
         running = gspot_contract.getRunning(antenna)
-        logging.info('gspot watch ' + str(running))
+        logging.debug('gspot watch ' + str(running))
 
         user_stack = user_stake(gspot_contract)
         owner_stack = owner_stake(gspot_contract)
