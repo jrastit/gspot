@@ -78,7 +78,7 @@ const ConnectedUser: FunctionComponent<ConnectedUser> = ({chainId, account}) => 
                         }
                     }
                 }}>
-                Stack 10
+                Stack
             </Button>
         </>
     );
